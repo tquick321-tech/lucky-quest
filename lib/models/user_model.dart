@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class UserModel {
   final String uid;
   final String email;
@@ -56,8 +54,12 @@ class UserModel {
       username: data['username'] ?? '',
       displayName: data['displayName'],
       photoUrl: data['photoUrl'],
-      createdAt: data['createdAt']?.toDate() ?? DateTime.now(),
-      lastLoginAt: data['lastLoginAt']?.toDate() ?? DateTime.now(),
+      createdAt: data['createdAt'] is DateTime
+          ? data['createdAt'] as DateTime
+          : DateTime.now(),
+      lastLoginAt: data['lastLoginAt'] is DateTime
+          ? data['lastLoginAt'] as DateTime
+          : DateTime.now(),
       totalCoins: data['totalCoins'] ?? 0,
       lifetimeEarnings: data['lifetimeEarnings'] ?? 0,
       gamesPlayed: data['gamesPlayed'] ?? 0,
@@ -83,8 +85,8 @@ class UserModel {
       'username': username,
       'displayName': displayName,
       'photoUrl': photoUrl,
-      'createdAt': Timestamp.fromDate(createdAt),
-      'lastLoginAt': Timestamp.fromDate(lastLoginAt),
+      'createdAt': createdAt.toIso8601String(),
+      'lastLoginAt': lastLoginAt.toIso8601String(),
       'totalCoins': totalCoins,
       'lifetimeEarnings': lifetimeEarnings,
       'gamesPlayed': gamesPlayed,

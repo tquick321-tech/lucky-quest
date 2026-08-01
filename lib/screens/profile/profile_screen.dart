@@ -248,7 +248,7 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 8),
         _buildMenuItem(
           context,
-          icon: CardGiftcard.icon,
+          icon: Icons.card_giftcard,
           title: 'Referrals',
           onTap: () {},
         ),

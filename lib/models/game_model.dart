@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class GameModel {
   final String id;
   final String name;
@@ -87,8 +85,12 @@ class GameSessionModel {
       gameId: data['gameId'] ?? '',
       score: data['score'] ?? 0,
       reward: data['reward'] ?? 0,
-      startedAt: data['startedAt']?.toDate() ?? DateTime.now(),
-      completedAt: data['completedAt']?.toDate() ?? DateTime.now(),
+      startedAt: data['startedAt'] is DateTime 
+          ? data['startedAt'] as DateTime
+          : DateTime.now(),
+      completedAt: data['completedAt'] is DateTime
+          ? data['completedAt'] as DateTime
+          : DateTime.now(),
       isWin: data['isWin'] ?? false,
     );
   }
@@ -100,8 +102,8 @@ class GameSessionModel {
       'gameId': gameId,
       'score': score,
       'reward': reward,
-      'startedAt': Timestamp.fromDate(startedAt),
-      'completedAt': Timestamp.fromDate(completedAt),
+      'startedAt': startedAt.toIso8601String(),
+      'completedAt': completedAt.toIso8601String(),
       'isWin': isWin,
     };
   }

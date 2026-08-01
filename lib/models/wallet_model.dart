@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class WalletModel {
   final String uid;
   final int availableBalance;
@@ -21,7 +19,9 @@ class WalletModel {
       availableBalance: data['availableBalance'] ?? 0,
       pendingBalance: data['pendingBalance'] ?? 0,
       frozenBalance: data['frozenBalance'] ?? 0,
-      lastUpdated: data['lastUpdated']?.toDate() ?? DateTime.now(),
+      lastUpdated: data['lastUpdated'] is DateTime
+          ? data['lastUpdated'] as DateTime
+          : DateTime.now(),
     );
   }
 
@@ -31,7 +31,7 @@ class WalletModel {
       'availableBalance': availableBalance,
       'pendingBalance': pendingBalance,
       'frozenBalance': frozenBalance,
-      'lastUpdated': Timestamp.fromDate(lastUpdated),
+      'lastUpdated': lastUpdated.toIso8601String(),
     };
   }
 
@@ -89,8 +89,12 @@ class TransactionModel {
         orElse: () => TransactionStatus.pending,
       ),
       description: data['description'],
-      createdAt: data['createdAt']?.toDate() ?? DateTime.now(),
-      completedAt: data['completedAt']?.toDate(),
+      createdAt: data['createdAt'] is DateTime
+          ? data['createdAt'] as DateTime
+          : DateTime.now(),
+      completedAt: data['completedAt'] is DateTime
+          ? data['completedAt'] as DateTime
+          : null,
       relatedId: data['relatedId'],
     );
   }
@@ -103,8 +107,8 @@ class TransactionModel {
       'amount': amount,
       'status': status.name,
       'description': description,
-      'createdAt': Timestamp.fromDate(createdAt),
-      'completedAt': completedAt != null ? Timestamp.fromDate(completedAt!) : null,
+      'createdAt': createdAt.toIso8601String(),
+      'completedAt': completedAt?.toIso8601String(),
       'relatedId': relatedId,
     };
   }

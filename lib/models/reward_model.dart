@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class RewardModel {
   final String id;
   final String name;
@@ -85,8 +83,12 @@ class WithdrawalRequestModel {
         (e) => e.name == data['status'],
         orElse: () => WithdrawalStatus.pending,
       ),
-      requestedAt: data['requestedAt']?.toDate() ?? DateTime.now(),
-      processedAt: data['processedAt']?.toDate(),
+      requestedAt: data['requestedAt'] is DateTime
+          ? data['requestedAt'] as DateTime
+          : DateTime.now(),
+      processedAt: data['processedAt'] is DateTime
+          ? data['processedAt'] as DateTime
+          : null,
       adminNote: data['adminNote'],
     );
   }
@@ -99,8 +101,8 @@ class WithdrawalRequestModel {
       'destination': destination,
       'amount': amount,
       'status': status.name,
-      'requestedAt': Timestamp.fromDate(requestedAt),
-      'processedAt': processedAt != null ? Timestamp.fromDate(processedAt!) : null,
+      'requestedAt': requestedAt.toIso8601String(),
+      'processedAt': processedAt?.toIso8601String(),
       'adminNote': adminNote,
     };
   }

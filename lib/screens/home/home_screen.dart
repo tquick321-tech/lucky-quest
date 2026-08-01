@@ -5,6 +5,7 @@ import '../wallet/wallet_screen.dart';
 import '../games/games_list_screen.dart';
 import '../rewards/rewards_screen.dart';
 import '../profile/profile_screen.dart';
+import '../revenue/revenue_sharing_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,12 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
-          _HomeTab(),
+        children: [
+          const _HomeTab(),
           GamesListScreen(),
-          RewardsScreen(),
-          WalletScreen(),
-          ProfileScreen(),
+          const RewardsScreen(),
+          const WalletScreen(),
+          const RevenueSharingScreen(),
+          const ProfileScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -59,6 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.account_balance_wallet_outlined),
             activeIcon: Icon(Icons.account_balance_wallet),
             label: 'Wallet',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.trending_up_outlined),
+            activeIcon: Icon(Icons.trending_up),
+            label: 'Revenue',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
-import '../auth/login_screen.dart';
 import '../home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,12 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkAuth() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     
     if (mounted) {
-      // TODO: Check actual auth state
+      // Navigate to home screen for testing (auth TODO)
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
       );
     }
   }
